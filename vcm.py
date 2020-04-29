@@ -112,7 +112,8 @@ class VCM:
 			print(self.spanning_tree_unreached)
 			
 			
-			record = 9999.9
+			record = 9999.99
+			
 			for candidate in candidatelist:
 				
 				#calculate vector to candidate
@@ -124,7 +125,7 @@ class VCM:
 				
 				#select shortest path, single answer
 				if effort_final < record:
-					record = int(effort_final)
+					record = effort_final
 					answer = candidate
 				
 				#select shortest path, two answers
