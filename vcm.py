@@ -3,6 +3,9 @@
 import operator
 import math
 
+DIMX = 9999.99
+DIMY = 9999.99
+
 class VCM:
 	def __init__(self):
 		self.nodemap = {}
@@ -91,21 +94,21 @@ class VCM:
 			for reached in self.spanning_tree_reached:
 				neighbourmap = self.find_neighbours(self.nodemap[reached])
 				candidatelist += neighbourmap
-			print("Reached node neighbours:")
-			print(candidatelist)
+			#print("Reached node neighbours:")
+			#print(candidatelist)
 
 			#remove duplicate candidate neighbours
 			candidatelist = list(dict.fromkeys(candidatelist))
-			print("Removed duplicates:")
-			print(candidatelist)
+			#print("Removed duplicates:")
+			#print(candidatelist)
 
 			#remove already reached neighbours
 			for reached_neighbour in sorted(self.spanning_tree_reached, reverse=True):
 				if reached_neighbour in candidatelist:
 					del candidatelist[candidatelist.index(reached_neighbour)]
 
-			print("Removed already reached nodes:")
-			print(candidatelist)
+			#print("Removed already reached nodes:")
+			#print(candidatelist)
 
 			print("Reached VS Unreached")
 			print(self.spanning_tree_reached)
@@ -121,7 +124,7 @@ class VCM:
 				# calculate hypotenuse to candidate
 				effort_h_sq = ((effort[0]*self.maxweight)**2) + ((effort[1]*self.minweight)**2)
 				effort_final = math.sqrt(effort_h_sq)
-				print(candidate + " -> " + str(effort_final))
+				#print(candidate + " -> " + str(effort_final))
 				
 				#select shortest path, single answer
 				if effort_final < record:
@@ -168,7 +171,12 @@ class VCM:
 
 			self.current_pos = self.nodemap[self.spanning_tree_reached[-1]]
 			currentpos_node = [k for k,v in self.nodemap.items() if v == self.current_pos]
-			print("Currently at: " + str(currentpos_node) + str(self.current_pos))
+			print("Moved to: " + str(currentpos_node) + str(self.current_pos))
+
+		#return sequence
+		#self.spanning_tree_reached.append(self.spanning_tree_reached[0])
+
+		print("Done! Route: " + str(self.spanning_tree_reached))
 
 			
 			
