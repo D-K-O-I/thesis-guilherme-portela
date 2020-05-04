@@ -14,6 +14,18 @@ def main():
 	vcm.add_node("J",1,1)
 	vcm.add_node("K",0,2)
 	vcm.add_node("L",-1,-2)
+	
+	vcm.add_node("M",2,0)
+	vcm.add_node("N",2,-1)
+	vcm.add_node("O",2,-2)
+
+	vcm.add_node("P",-2,0)
+	vcm.add_node("Q",-3,0)
+	vcm.add_node("R",-2,1)
+	vcm.add_node("S",-3,1)
+
+	vcm.add_node("T",2,1)
+	
 	vcm.route()
 
 if __name__ == '__main__':

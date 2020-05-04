@@ -9,6 +9,7 @@ DIMY = 9999.99
 class VCM:
 	def __init__(self):
 		self.nodemap = {}
+		self.shelf_height = 1
 
 	def add_node(self, epc, x, y):
 		if epc in self.nodemap:
@@ -31,39 +32,23 @@ class VCM:
 	def get_nodemap(self):
 		return self.nodemap
 
+	def coordinate_check(self,cpos,x,y):
+		temp_nm = {}
+		temp = tuple(map(operator.add, cpos, (x,y)))
+		if  temp in self.nodemap.values():
+			temp_n = [k for k,v in self.nodemap.items() if v == temp]
+			#print(temp_n)
+			for neighbour in temp_n:
+				temp_nm[neighbour] = self.nodemap[neighbour]
+		return temp_nm
+
+
 
 	def find_neighbours(self, cpos):
 		#Finds neighbouring nodes orthogonally
 		nm = {}
-
-		#Positive X
-		temp = tuple(map(operator.add, cpos, (1,0)))
-		if  temp in self.nodemap.values():
-			temp_n = [k for k,v in self.nodemap.items() if v == temp]
-			#print(temp_n)
-			for neighbour in temp_n:
-				nm[neighbour] = self.nodemap[neighbour]
-		#Positive Y
-		temp = tuple(map(operator.add, cpos, (0,1)))
-		if  temp in self.nodemap.values():
-			temp_n = [k for k,v in self.nodemap.items() if v == temp]
-			#print(temp_n)
-			for neighbour in temp_n:
-				nm[neighbour] = self.nodemap[neighbour]
-		#Negative X
-		temp = tuple(map(operator.add, cpos, (-1,0)))
-		if  temp in self.nodemap.values():
-			temp_n = [k for k,v in self.nodemap.items() if v == temp]
-			#print(temp_n)
-			for neighbour in temp_n:
-				nm[neighbour] = self.nodemap[neighbour]
-		#Negative Y
-		temp = tuple(map(operator.add, cpos, (0,-1)))
-		if  temp in self.nodemap.values():
-			temp_n = [k for k,v in self.nodemap.items() if v == temp]
-			#print(temp_n)
-			for neighbour in temp_n:
-				nm[neighbour] = self.nodemap[neighbour]
+		for d in (self.coordinate_check(cpos,0,1), self.coordinate_check(cpos,0,-1), self.coordinate_check(cpos,1,0), self.coordinate_check(cpos,-1,0)):
+			nm.update(d)
 
 		return nm
 
@@ -124,7 +109,7 @@ class VCM:
 				# calculate hypotenuse to candidate
 				effort_h_sq = ((effort[0]*self.maxweight)**2) + ((effort[1]*self.minweight)**2)
 				effort_final = math.sqrt(effort_h_sq)
-				#print(candidate + " -> " + str(effort_final))
+				print(candidate + " -> " + str(effort_final))
 				
 				#select shortest path, single answer
 				if effort_final < record:
@@ -138,6 +123,7 @@ class VCM:
 					count = 0
 					
 					#check if equality is aisle-related or due to different rows
+					#aisle-related
 					if self.nodemap[candidate][0] == self.nodemap[answer][0] and self.current_pos[0] == self.nodemap[candidate][0]:
 						#pick shortest extremity to minimize aisle-travel time
 						for unreached in self.spanning_tree_unreached:
@@ -153,18 +139,53 @@ class VCM:
 							answer_coord = tuple(map(operator.add, self.current_pos, (0,int(self.minweight))))
 							answerp = [k for k,v in self.nodemap.items() if v == answer_coord]
 							#print(answerp)
-							answer = answerp.pop(0)
+							try:
+								answer = answerp.pop(0)
+							except:
+								continue
 						#if shortest, head South (negative Y)
 						elif abs(max) > abs(min):
 							answer_coord = tuple(map(operator.add, self.current_pos, (0,-int(self.minweight))))
 							answerp = [k for k,v in self.nodemap.items() if v == answer_coord]
 							#print(answerp)
-							answer = answerp.pop(0)
-						
+							try:
+								answer = answerp.pop(0)
+							except:
+								continue
+					
+					#different rows		
 					else:	
-						#compare candidate with answer for row, always pick West (negative X) if possible
-						if self.nodemap[answer][0] > self.nodemap[candidate][0]:
-							answer = candidate
+						##compare candidate with answer for row, always pick West (negative X) if possible
+						#if self.nodemap[answer][0] > self.nodemap[candidate][0]:
+						#	answer = candidate
+
+						#pick shortest extremity to minimize aisle-travel time
+						for unreached in self.spanning_tree_unreached:
+							if self.nodemap[unreached][0] == self.current_pos[0]:
+								count += 1
+								if self.nodemap[unreached][0] > self.nodemap[candidate][0] and self.nodemap[unreached][0] > max:
+									max = self.nodemap[unreached][0]
+								elif self.nodemap[unreached][0] < self.nodemap[candidate][0] and self.nodemap[unreached][0] < min:
+									min = self.nodemap[unreached][0]
+						
+						#if shortest, head East (positive X)
+						if abs(max) < abs(min):
+							answer_coord = tuple(map(operator.add, self.current_pos, (int(self.minweight),0)))
+							answerp = [k for k,v in self.nodemap.items() if v == answer_coord]
+							#print(answerp)
+							try:
+								answer = answerp.pop(0)
+							except:
+								continue
+						#by default or if shortest, head West (negative X)
+						elif abs(max) >= abs(min):
+							answer_coord = tuple(map(operator.add, self.current_pos, (-int(self.minweight),0)))
+							answerp = [k for k,v in self.nodemap.items() if v == answer_coord]
+							#print(answerp)
+							try:
+								answer = answerp.pop(0)
+							except:
+								continue
 
 			self.spanning_tree_reached.append(answer)
 			del self.spanning_tree_unreached[self.spanning_tree_unreached.index(answer)]
