@@ -5,11 +5,13 @@ import math
 
 DIMX = 9999.99
 DIMY = 9999.99
+DIMH = 10
 
 class VCM:
 	def __init__(self):
 		self.nodemap = {}
-		self.shelf_height = 1
+		self.shelf_height = 3
+		self.current_pos = (0,0) #arbitrary
 
 	def add_node(self, epc, x, y):
 		if epc in self.nodemap:
@@ -32,7 +34,12 @@ class VCM:
 	def get_nodemap(self):
 		return self.nodemap
 
+	#TODO
+	#def set_perimeter():
+	#defines boundaries (coordinate-wise) for the drone to stay in, affects _record_ variable
+
 	def coordinate_check(self,cpos,x,y):
+		#TODO: add workaround to resolve GL case
 		temp_nm = {}
 		temp = tuple(map(operator.add, cpos, (x,y)))
 		if  temp in self.nodemap.values():
@@ -42,8 +49,6 @@ class VCM:
 				temp_nm[neighbour] = self.nodemap[neighbour]
 		return temp_nm
 
-
-
 	def find_neighbours(self, cpos):
 		#Finds neighbouring nodes orthogonally
 		nm = {}
@@ -52,15 +57,30 @@ class VCM:
 
 		return nm
 
+	def route_3d(self):
+		i = 1
+		while i <= self.shelf_height:
+			self.route()
+			print("END OF LEVEL")
+			i+=1
+
+
 	def route(self):
 		#Current Goal: Form a Minimum spanning tree by for the shortest LONGEST PATH
 		#The drone must cross ALL minweight edges and the minimum number of maxweight edges
 		#Then, it must return to its starting position according to Djikstra's Shortest Path Theorem
 		#Orientation: Orthogonal, with X being maxweight and Y being minweight
-		self.current_pos = (0,0) #arbitrary
+
+		#IMPORTANT: THIS ROUTE IS STRICTLY HORIZONTAL: to check several shelf levels, increase self.shelf_height
+		#vertical movement is expensive, so the drone should only move upwards when necessary
+		#The drone should perform one route() per level, after having reached all nodes
+
+		
 		self.start_pos = self.current_pos
 		self.spanning_tree_reached = []
 		self.spanning_tree_unreached = list(self.nodemap)
+
+		#TODO: add failsafe on timeout or re-route to get list of reached nodes for current shelf level
 		#add start_pos vector to reached, del for unreached
 		temp = [k for k,v in self.nodemap.items() if v == self.start_pos]
 		self.spanning_tree_reached = self.spanning_tree_reached + temp
@@ -101,6 +121,7 @@ class VCM:
 			
 			
 			record = 9999.99
+			#TODO: add verification: if vector of (current_pos -> candidate) centered on current_pos exceeds DIMX or DIMY, it is discarded (candidate is poorly configured, and del'd)
 			
 			for candidate in candidatelist:
 				
@@ -187,6 +208,7 @@ class VCM:
 							except:
 								continue
 
+			#GL problem: if the closest answer is in the same row but there's no nodes between them, what to do?
 			self.spanning_tree_reached.append(answer)
 			del self.spanning_tree_unreached[self.spanning_tree_unreached.index(answer)]
 

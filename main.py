@@ -26,7 +26,7 @@ def main():
 
 	vcm.add_node("T",2,1)
 	
-	vcm.route()
+	vcm.route_3d()
 
 if __name__ == '__main__':
 	main()
