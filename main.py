@@ -28,5 +28,7 @@ def main():
 	
 	vcm.route_3d()
 
+	vcm.set_perimeter((0,0),(2,1))
+
 if __name__ == '__main__':
 	main()

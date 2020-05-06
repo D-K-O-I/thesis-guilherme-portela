@@ -11,7 +11,7 @@ class VCM:
 	def __init__(self):
 		self.nodemap = {}
 		self.shelf_height = 3
-		self.current_pos = (0,0) #arbitrary
+		self.current_pos = (0,0) #arbitrary, definable
 
 	def add_node(self, epc, x, y):
 		if epc in self.nodemap:
@@ -35,11 +35,18 @@ class VCM:
 		return self.nodemap
 
 	#TODO
-	#def set_perimeter():
+	def set_perimeter(self, low_bound, high_bound):
+	#receives 2 tuples (coordinates) to define its boundaries
 	#defines boundaries (coordinate-wise) for the drone to stay in, affects _record_ variable
+		self.nodemap_per = {}
+
+		for node in self.nodemap:
+			if (self.nodemap.get(node)[0] >= low_bound[0] and self.nodemap.get(node)[1] >= low_bound[1]) and (self.nodemap.get(node)[0] <= high_bound[0] and self.nodemap.get(node)[1] <= high_bound[1]):
+				self.nodemap_per[node] = self.nodemap.get(node)
+
+		print(self.nodemap_per)
 
 	def coordinate_check(self,cpos,x,y):
-		#TODO: add workaround to resolve GL case
 		temp_nm = {}
 		temp = tuple(map(operator.add, cpos, (x,y)))
 		if  temp in self.nodemap.values():
@@ -47,6 +54,15 @@ class VCM:
 			#print(temp_n)
 			for neighbour in temp_n:
 				temp_nm[neighbour] = self.nodemap[neighbour]
+
+		#Failsafe: if there is no immediate Y axis node, check its "next to kin" to determine if there is a shelf to be traversed
+		else:
+			temp = tuple(map(operator.add, cpos, (x,2*y)))
+			if  temp in self.nodemap.values():
+				temp_n = [k for k,v in self.nodemap.items() if v == temp]
+				#print(temp_n)
+				for neighbour in temp_n:
+					temp_nm[neighbour] = self.nodemap[neighbour]
 		return temp_nm
 
 	def find_neighbours(self, cpos):
@@ -59,8 +75,10 @@ class VCM:
 
 	def route_3d(self):
 		i = 1
+		#TODO (main.py): add failsafe on timeout or re-route to get list of reached nodes for current shelf level;
+		#use route_per_level and self.spanning_tree_reached as base
 		while i <= self.shelf_height:
-			self.route()
+			route_per_level = self.route()
 			print("END OF LEVEL")
 			i+=1
 
@@ -80,7 +98,6 @@ class VCM:
 		self.spanning_tree_reached = []
 		self.spanning_tree_unreached = list(self.nodemap)
 
-		#TODO: add failsafe on timeout or re-route to get list of reached nodes for current shelf level
 		#add start_pos vector to reached, del for unreached
 		temp = [k for k,v in self.nodemap.items() if v == self.start_pos]
 		self.spanning_tree_reached = self.spanning_tree_reached + temp
@@ -115,16 +132,19 @@ class VCM:
 			#print("Removed already reached nodes:")
 			#print(candidatelist)
 
-			print("Reached VS Unreached")
-			print(self.spanning_tree_reached)
-			print(self.spanning_tree_unreached)
+			#print("Reached VS Unreached")
+			#print(self.spanning_tree_reached)
+			#print(self.spanning_tree_unreached)
 			
 			
 			record = 9999.99
-			#TODO: add verification: if vector of (current_pos -> candidate) centered on current_pos exceeds DIMX or DIMY, it is discarded (candidate is poorly configured, and del'd)
 			
 			for candidate in candidatelist:
-				
+				#verification: if vector of (current_pos -> candidate) centered on current_pos exceeds DIMX or DIMY, it is discarded (candidate is poorly configured)
+				misconfig_test = tuple(map(operator.add, self.current_pos, (self.nodemap[candidate][0],self.nodemap[candidate][1])))
+				if misconfig_test[0] > DIMX or misconfig_test[1] > DIMY:
+					continue
+
 				#calculate vector to candidate
 				effort = (abs(self.current_pos[0] - self.nodemap[candidate][0]), abs(self.current_pos[1] - self.nodemap[candidate][1]))
 				# calculate hypotenuse to candidate
@@ -176,10 +196,6 @@ class VCM:
 					
 					#different rows		
 					else:	
-						##compare candidate with answer for row, always pick West (negative X) if possible
-						#if self.nodemap[answer][0] > self.nodemap[candidate][0]:
-						#	answer = candidate
-
 						#pick shortest extremity to minimize aisle-travel time
 						for unreached in self.spanning_tree_unreached:
 							if self.nodemap[unreached][0] == self.current_pos[0]:
@@ -208,7 +224,6 @@ class VCM:
 							except:
 								continue
 
-			#GL problem: if the closest answer is in the same row but there's no nodes between them, what to do?
 			self.spanning_tree_reached.append(answer)
 			del self.spanning_tree_unreached[self.spanning_tree_unreached.index(answer)]
 
@@ -220,6 +235,6 @@ class VCM:
 		#self.spanning_tree_reached.append(self.spanning_tree_reached[0])
 
 		print("Done! Route: " + str(self.spanning_tree_reached))
-
+		return(self.spanning_tree_reached)
 			
 			
