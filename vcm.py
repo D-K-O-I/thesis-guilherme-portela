@@ -10,8 +10,13 @@ DIMH = 10
 class VCM:
 	def __init__(self):
 		self.nodemap = {}
+		self.nodemap_per = {}
+		self.nodemap_hld = {}
 		self.shelf_height = 3
 		self.current_pos = (0,0) #arbitrary, definable
+
+	def upd_node(self):
+		self.nodemap_hld = self.nodemap
 
 	def add_node(self, epc, x, y):
 		if epc in self.nodemap:
@@ -19,6 +24,7 @@ class VCM:
 				user_input = input("EPC already registered to node at " + str(self.nodemap[epc]) + ". Update this node's coordinates?\n [Y]es [N]o\n")
 				if user_input == "Y":
 					self.nodemap[epc] = (x,y)
+					self.upd_node()
 					break
 				elif user_input == "N":
 					break
@@ -27,24 +33,36 @@ class VCM:
 				print("Coordinates already assigned to an EPC. Update that Coordinate or choose a different Coordinate to add.")
 			else:
 				self.nodemap[epc] = (x,y)
+				self.upd_node()
 
 	def del_node(self, epc):
 		del self.nodemap[epc]
+		self.upd_node()
 
 	def get_nodemap(self):
+		print(self.nodemap)
 		return self.nodemap
 
-	#TODO
-	def set_perimeter(self, low_bound, high_bound):
+	def set_perimeter(self, lower_bound, upper_bound):
 	#receives 2 tuples (coordinates) to define its boundaries
 	#defines boundaries (coordinate-wise) for the drone to stay in, affects _record_ variable
-		self.nodemap_per = {}
+		if len(self.nodemap_per) != 0:
+			self.rem_perimeter()
 
 		for node in self.nodemap:
-			if (self.nodemap.get(node)[0] >= low_bound[0] and self.nodemap.get(node)[1] >= low_bound[1]) and (self.nodemap.get(node)[0] <= high_bound[0] and self.nodemap.get(node)[1] <= high_bound[1]):
+			if (self.nodemap.get(node)[0] >= lower_bound[0] and self.nodemap.get(node)[1] >= lower_bound[1]) and (self.nodemap.get(node)[0] <= upper_bound[0] and self.nodemap.get(node)[1] <= upper_bound[1]):
 				self.nodemap_per[node] = self.nodemap.get(node)
 
-		print(self.nodemap_per)
+		#print(self.nodemap_per)
+		self.nodemap = self.nodemap_per
+		#print(self.nodemap)
+		print("New perimeter set.")
+		return self.nodemap
+
+	def rem_perimeter(self):
+		print("Erased existing perimeter.")
+		self.nodemap_per.clear()
+		self.nodemap = self.nodemap_hld
 
 	def coordinate_check(self,cpos,x,y):
 		temp_nm = {}
@@ -143,6 +161,7 @@ class VCM:
 				#verification: if vector of (current_pos -> candidate) centered on current_pos exceeds DIMX or DIMY, it is discarded (candidate is poorly configured)
 				misconfig_test = tuple(map(operator.add, self.current_pos, (self.nodemap[candidate][0],self.nodemap[candidate][1])))
 				if misconfig_test[0] > DIMX or misconfig_test[1] > DIMY:
+					#ignore this connection
 					continue
 
 				#calculate vector to candidate
@@ -150,7 +169,7 @@ class VCM:
 				# calculate hypotenuse to candidate
 				effort_h_sq = ((effort[0]*self.maxweight)**2) + ((effort[1]*self.minweight)**2)
 				effort_final = math.sqrt(effort_h_sq)
-				print(candidate + " -> " + str(effort_final))
+				#print(candidate + " -> " + str(effort_final))
 				
 				#select shortest path, single answer
 				if effort_final < record:

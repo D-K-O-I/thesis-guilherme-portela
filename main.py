@@ -25,10 +25,13 @@ def main():
 	vcm.add_node("S",-3,1)
 
 	vcm.add_node("T",2,1)
-	
+	vcm.set_perimeter((-1,-2),(2,2))
 	vcm.route_3d()
 
-	vcm.set_perimeter((0,0),(2,1))
+	#vcm.set_perimeter((0,0),(2,1))
+	#vcm.get_nodemap()
+	#vcm.rem_perimeter()
+	#vcm.get_nodemap()
 
 if __name__ == '__main__':
 	main()
