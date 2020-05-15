@@ -8,6 +8,7 @@ class Tello:
         self.local_ip = ''
         self.local_port = 8889
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # socket for sending cmd
+        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.socket.bind((self.local_ip, self.local_port))
 
         # thread for receiving cmd ack
@@ -17,10 +18,11 @@ class Tello:
 
         self.tello_ip = '192.168.10.1'
         self.tello_port = 8889
-        self.tello_adderss = (self.tello_ip, self.tello_port)
+        self.tello_address = (self.tello_ip, self.tello_port)
         self.log = []
 
-        self.MAX_TIME_OUT = 15.0
+
+        self.MAX_TIME_OUT = 1.0
 
     def send_command(self, command):
         """
@@ -34,7 +36,7 @@ class Tello:
         """
         self.log.append(Stats(command, len(self.log)))
 
-        self.socket.sendto(command.encode('utf-8'), self.tello_adderss)
+        self.socket.sendto(command.encode('utf-8'), self.tello_address)
         print ('sending command: %s to %s' % (command, self.tello_ip))
 
         start = time.time()
@@ -60,14 +62,14 @@ class Tello:
                 print('from %s: %s' % (ip, self.response))
 
                 self.log[-1].add_response(self.response)
-            except (socket.error, exc):
-                print ("Caught exception socket.error : %s" % exc)
+            except:
+                print ("Connection ended.")
+                break
 
     def on_close(self):
-        pass
-        # for ip in self.tello_ip_list:
-        #     self.socket.sendto('land'.encode('utf-8'), (ip, 8889))
-        # self.socket.close()
+         #for ip in self.tello_ip_list:
+         #    self.socket.sendto('land'.encode('utf-8'), (ip, 8889))
+         self.socket.close()
 
     def get_log(self):
         return self.log

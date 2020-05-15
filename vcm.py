@@ -2,6 +2,7 @@
 #nodemap: dict(EPC: tag)
 import operator
 import math
+import global_vars
 
 DIMX = 9999.99
 DIMY = 9999.99
@@ -12,8 +13,10 @@ class VCM:
 		self.nodemap = {}
 		self.nodemap_per = {}
 		self.nodemap_hld = {}
-		self.shelf_height = 3
+		self.shelf_height = 2
 		self.current_pos = (0,0) #arbitrary, definable
+		self.traverse_order = [] #final routing path
+		self.i = 0
 
 	def upd_node(self):
 		self.nodemap_hld = self.nodemap
@@ -92,13 +95,13 @@ class VCM:
 		return nm
 
 	def route_3d(self):
-		i = 1
 		#TODO (main.py): add failsafe on timeout or re-route to get list of reached nodes for current shelf level;
 		#use route_per_level and self.spanning_tree_reached as base
-		while i <= self.shelf_height:
+		while self.i <= self.shelf_height:
 			route_per_level = self.route()
+			self.traverse_order.append(route_per_level)
 			print("END OF LEVEL")
-			i+=1
+			self.i+=1
 
 
 	def route(self):
@@ -112,9 +115,13 @@ class VCM:
 		#The drone should perform one route() per level, after having reached all nodes
 
 		
-		self.start_pos = self.current_pos
-		self.spanning_tree_reached = []
-		self.spanning_tree_unreached = list(self.nodemap)
+		if not global_vars.flag_reroute:
+			self.start_pos = self.current_pos
+			self.spanning_tree_reached = []
+			self.spanning_tree_unreached = list(self.nodemap)
+		else:
+			self.start_pos = self.nodemap[spanning_tree_reached[-1]]
+			global_vars.flag_reroute = False
 
 		#add start_pos vector to reached, del for unreached
 		temp = [k for k,v in self.nodemap.items() if v == self.start_pos]

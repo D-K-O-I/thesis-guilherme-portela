@@ -2,8 +2,6 @@ from tello import Tello
 import sys
 from datetime import datetime
 import time
-
-from vcm import VCM
 #READ COMMANDS: ADD ?
 #speed: cm/s
 #battery: %
@@ -25,7 +23,6 @@ from vcm import VCM
 #cw, ccw: 1-3600º
 #go: x, y, z, speed
 #speed: x
-vcm = VCM()
 
 start_time = str(datetime.now())
 tello = Tello()

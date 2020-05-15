@@ -1,7 +1,7 @@
-from tello import Tello
 import sys
 from datetime import datetime
 import time
+import global_vars
 #READ COMMANDS: ADD ?
 #speed: cm/s
 #battery: %
@@ -24,15 +24,18 @@ import time
 #go: x, y, z, speed
 #speed: x
 
+dt = datetime.now()
+start_time = dt.strftime("%Y%m%d_%H%M")
 
-start_time = str(datetime.now())
+#start_time = str(datetime.now())
 
-file_name = sys.argv[1]
+#file_name = sys.argv[1]
 
-f = open(file_name, "r")
+f = open(global_vars.filename, "r")
 commands = f.readlines()
+f.close()
 
-tello = Tello()
+#tello = Tello()
 for command in commands:
     if command != '' and command != '\n':
         command = command.rstrip()
@@ -43,11 +46,11 @@ for command in commands:
             time.sleep(sec)
             pass
         else:
-            tello.send_command(command)
+            global_vars.tello.send_command(command)
 
-log = tello.get_log()
+log = global_vars.tello.get_log()
 
-out = open(start_time[:10] + '.txt', 'w')
+out = open(start_time + '.txt', 'w')
 for stat in log:
     stat.print_stats()
     str = stat.return_stats()
