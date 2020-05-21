@@ -9,8 +9,9 @@ import os
 import sys
 import math
 
-DRONE_DISTANCE = 20 #arbitrary
-#drone_position = None #metric::= [0.0, 0.0, 0.0]
+DRONE_DISTANCE = 20 #arbitrarys
+DRONE_MAXHEIGHT = 200
+drone_position = None #metric::= [0.0, 0.0, 0.0]
 rcv = 0
 
 def query_rfid():
@@ -72,10 +73,13 @@ def movement_controller(traverse_order, shelf_level, node, next_node, nodemap):
 			string_builder_temp += "\n"
 		else:
 			#DIAGONAL CASE
-			string_builder_temp += "up " + str(abs(100)) + "\n"
+			#string_builder_temp += "up " + str(abs(100)) + "\n" #UNQUOTE AFTER DRONE_POSITION IS DEFINED
 			#move diagonally to point
 			angle_degrees = math.degrees(math.atan2(movement_vector[0], movement_vector[1]))
 			hypotenuse = math.hypot(movement_vector[0], movement_vector[1])
+
+			angle_degrees = angle_degrees % 360
+
 			if angle_degrees <= 180:
 				#cw angle
 				string_builder_temp += "cw " + str(angle_degrees) + "\n"
@@ -83,15 +87,16 @@ def movement_controller(traverse_order, shelf_level, node, next_node, nodemap):
 				string_builder_temp += "forward " + str(hypotenuse) + "\n"
 				#ccw angle
 				string_builder_temp += "ccw " + str(angle_degrees) + "\n"
+
 			else:
 				#ccw 360 - angle
 				string_builder_temp += "ccw " + str(360 - angle_degrees) + "\n"
 				#forward hypotenuse
 				string_builder_temp += "forward " + str(hypotenuse) + "\n"
 				#cw 360 - angle
-				string_builder_temp += "cw " + str(angle_degrees) + "\n"
+				string_builder_temp += "cw " + str(360 - angle_degrees) + "\n"
 			
-			string_builder_temp += "down " + str(abs(100)) + "\n"
+			#string_builder_temp += "down " + str(abs(100)) + "\n" #UNQUOTE AFTER DRONE_POSITION IS DEFINED
 
 	movement = string_builder_temp
 	return movement
@@ -177,10 +182,11 @@ def main():
 		string_builder += "up " + str(abs(DRONE_DISTANCE)) + "\n"
 
 	f.write(string_builder)
+	f.write("land\n")
 	f.close()
 	#finally, connection broker relays all commands to drone
 	#connection broker attempts to resend commands!
-	connection_broker()
+	#connection_broker()
 
 
 if __name__ == '__main__':

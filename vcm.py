@@ -102,6 +102,7 @@ class VCM:
 			self.traverse_order.append(route_per_level)
 			print("END OF LEVEL")
 			self.i+=1
+		self.traverse_order[self.shelf_height].append(self.traverse_order[0][0])
 
 
 	def route(self):
