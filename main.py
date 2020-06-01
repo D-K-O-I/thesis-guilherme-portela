@@ -9,7 +9,8 @@ import os
 import sys
 import math
 
-DRONE_DISTANCE = 20 #arbitrarys
+
+DRONE_DISTANCE = 20 #arbitrary
 DRONE_MAXHEIGHT = 200
 drone_position = None #metric::= [0.0, 0.0, 0.0]
 rcv = 0
@@ -34,7 +35,7 @@ def check_rssi(node):
 	#return rcv
 	pass
 
-def movement_controller(traverse_order, shelf_level, node, next_node, nodemap):
+def movement_controller(traverse_order, shelf_level, node, next_node, nodemap, dhc):
 	string_builder_temp = ""
 	#for each node to be traversed
 	#wait for immediate node tag (path marker) to be checked
@@ -57,22 +58,58 @@ def movement_controller(traverse_order, shelf_level, node, next_node, nodemap):
 			#vertical movement
 			if movement_vector[0] == 0:
 				if movement_vector[1] < 0:
-					string_builder_temp += "back "
+					#string_builder_temp += "back "
+					if dhc == 180:
+						string_builder_temp += "forward "
+					else:
+						rotation = (180 - dhc) % 360
+						string_builder_temp += "cw " + str(rotation) + "\n"
+						string_builder_temp += "forward "
+						dhc = 180
+
 				else:
-					string_builder_temp += "forward "
+					#string_builder_temp += "forward "
+					if dhc == 0:
+						string_builder_temp += "forward "
+					else:
+						rotation = (0 - dhc) % 360
+						string_builder_temp += "cw " + str(rotation) + "\n"
+						string_builder_temp += "forward "
+						dhc = 0
+
 				string_builder_temp += str(abs(movement_vector[1])*DRONE_DISTANCE)
 				
 			#horizontal movement
 			elif movement_vector[1] == 0:
 				if movement_vector[0] < 0:
-					string_builder_temp += "left "
+					#string_builder_temp += "left "
+					if dhc == 270:
+						string_builder_temp += "forward "
+					else:
+						rotation = (270 - dhc) % 360
+						string_builder_temp += "cw " + str(rotation) + "\n"
+						string_builder_temp += "forward "
+						dhc = 270
+
 				else:
-					string_builder_temp += "right "
+					#string_builder_temp += "right "
+					if dhc == 90:
+						string_builder_temp += "forward "
+					else:
+						rotation = (90 - dhc) % 360
+						string_builder_temp += "cw " + str(rotation) + "\n"
+						string_builder_temp += "forward "
+						dhc = 90
+
 				string_builder_temp += str(abs(movement_vector[0])*DRONE_DISTANCE)
 			
 			string_builder_temp += "\n"
 		else:
 			#DIAGONAL CASE
+			if dhc != 0:
+				rotation = (0 - dhc) % 360
+				string_builder_temp += "cw " + str(rotation) + "\n"
+				dhc = 0
 			#string_builder_temp += "up " + str(abs(100)) + "\n" #UNQUOTE AFTER DRONE_POSITION IS DEFINED
 			#move diagonally to point
 			angle_degrees = math.degrees(math.atan2(movement_vector[0], movement_vector[1]))
@@ -84,7 +121,7 @@ def movement_controller(traverse_order, shelf_level, node, next_node, nodemap):
 				#cw angle
 				string_builder_temp += "cw " + str(angle_degrees) + "\n"
 				#forward hypotenuse
-				string_builder_temp += "forward " + str(hypotenuse) + "\n"
+				string_builder_temp += "forward " + str(hypotenuse*DRONE_DISTANCE) + "\n"
 				#ccw angle
 				string_builder_temp += "ccw " + str(angle_degrees) + "\n"
 
@@ -92,14 +129,13 @@ def movement_controller(traverse_order, shelf_level, node, next_node, nodemap):
 				#ccw 360 - angle
 				string_builder_temp += "ccw " + str(360 - angle_degrees) + "\n"
 				#forward hypotenuse
-				string_builder_temp += "forward " + str(hypotenuse) + "\n"
+				string_builder_temp += "forward " + str(hypotenuse*DRONE_DISTANCE) + "\n"
 				#cw 360 - angle
 				string_builder_temp += "cw " + str(360 - angle_degrees) + "\n"
 			
 			#string_builder_temp += "down " + str(abs(100)) + "\n" #UNQUOTE AFTER DRONE_POSITION IS DEFINED
-
 	movement = string_builder_temp
-	return movement
+	return movement, dhc
 
 def connection_broker():
 	dt = datetime.now()
@@ -131,7 +167,7 @@ def connection_broker():
 
 def main():
 	vcm = VCM()
-	tello = Tello()
+	#tello = Tello()
 	vcm.add_node("A",0,0)
 	vcm.add_node("B",1,0)
 	vcm.add_node("C",0,-1)
@@ -155,11 +191,11 @@ def main():
 	vcm.add_node("S",-3,1)
 
 	vcm.add_node("T",2,1)
-	#vcm.set_perimeter((0,0),(2,1))
+	#vcm.set_perimeter((-1,-1),(1,1))
 	
 	f = open(global_vars.filename, 'w')
 	f.write("command\n")
-	f.write("liftoff\n")
+	f.write("takeoff\n")
 	string_builder = ""
 
 	nodemap = vcm.get_nodemap()
@@ -167,27 +203,34 @@ def main():
 	print(vcm.traverse_order)
 
 	drone_position = [vcm.traverse_order[0][0], 0]
+	dhc = 0
 	#print(drone_position)
 	#print(vcm.nodemap[drone_position])
-	tello.on_close()
+	#tello.on_close()
 	for shelf_level in vcm.traverse_order:
 		pair_stop = shelf_level[0]
 		for node, next_node in zip(shelf_level, shelf_level[1:] + [shelf_level[0]]):
 			if next_node != pair_stop:
 				print(node, next_node)
 				#make MOVEMENT command
-				string_builder += movement_controller(vcm.traverse_order, shelf_level, node, next_node, nodemap)
-				#string_builder += "delay 1\n"
+				sbt, dhc = movement_controller(vcm.traverse_order, shelf_level, node, next_node, nodemap, dhc)
+				string_builder += sbt
+				string_builder += "delay 1\n"
+				#print(dhc)
 		#-> make UP command
 		string_builder += "up " + str(abs(DRONE_DISTANCE)) + "\n"
 
 	f.write(string_builder)
+	#f.write("cw 90\n")
+	#f.write("cw 90\n")
+	#f.write("cw 90\n")
+	#f.write("ccw 270\n")
 	f.write("land\n")
 	f.close()
 	#finally, connection broker relays all commands to drone
 	#connection broker attempts to resend commands!
-	#connection_broker()
-
+	connection_broker()
+	global_vars.tello.on_close()
 
 if __name__ == '__main__':
 	main()

@@ -22,7 +22,7 @@ class Tello:
         self.log = []
 
 
-        self.MAX_TIME_OUT = 1.0
+        self.MAX_TIME_OUT = 15.0
 
     def send_command(self, command):
         """
@@ -69,6 +69,7 @@ class Tello:
     def on_close(self):
          #for ip in self.tello_ip_list:
          #    self.socket.sendto('land'.encode('utf-8'), (ip, 8889))
+         self.socket.shutdown(socket.SHUT_RDWR)
          self.socket.close()
 
     def get_log(self):

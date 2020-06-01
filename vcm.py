@@ -124,7 +124,7 @@ class VCM:
 			self.start_pos = self.nodemap[spanning_tree_reached[-1]]
 			global_vars.flag_reroute = False
 
-		#add start_pos vector to reached, del for unreached
+		#add start_pos vector to reached, f for unreached
 		temp = [k for k,v in self.nodemap.items() if v == self.start_pos]
 		self.spanning_tree_reached = self.spanning_tree_reached + temp
 		self.spanning_tree_unreached.remove(self.spanning_tree_reached[-1])
@@ -177,7 +177,7 @@ class VCM:
 				# calculate hypotenuse to candidate
 				effort_h_sq = ((effort[0]*self.maxweight)**2) + ((effort[1]*self.minweight)**2)
 				effort_final = math.sqrt(effort_h_sq)
-				#print(candidate + " -> " + str(effort_final))
+				print(candidate + " -> " + str(effort_final))
 				
 				#select shortest path, single answer
 				if effort_final < record:
@@ -191,16 +191,18 @@ class VCM:
 					count = 0
 					
 					#check if equality is aisle-related or due to different rows
+
 					#aisle-related
 					if self.nodemap[candidate][0] == self.nodemap[answer][0] and self.current_pos[0] == self.nodemap[candidate][0]:
 						#pick shortest extremity to minimize aisle-travel time
 						for unreached in self.spanning_tree_unreached:
 							if self.nodemap[unreached][0] == self.current_pos[0]:
 								count += 1
-								if self.nodemap[unreached][1] > self.nodemap[candidate][1] and self.nodemap[unreached][1] > max:
+								if self.nodemap[unreached][1] >= self.nodemap[candidate][1] and self.nodemap[unreached][1] > max:
 									max = self.nodemap[unreached][1]
-								elif self.nodemap[unreached][1] < self.nodemap[candidate][1] and self.nodemap[unreached][1] < min:
+								elif self.nodemap[unreached][1] <= self.nodemap[candidate][1] and self.nodemap[unreached][1] < min:
 									min = self.nodemap[unreached][1]
+						print(max,min)
 						
 						#by default or if shortest, head North (positive Y)
 						if abs(max) <= abs(min):
@@ -227,9 +229,9 @@ class VCM:
 						for unreached in self.spanning_tree_unreached:
 							if self.nodemap[unreached][0] == self.current_pos[0]:
 								count += 1
-								if self.nodemap[unreached][0] > self.nodemap[candidate][0] and self.nodemap[unreached][0] > max:
+								if self.nodemap[unreached][0] >= self.nodemap[candidate][0] and self.nodemap[unreached][0] > max:
 									max = self.nodemap[unreached][0]
-								elif self.nodemap[unreached][0] < self.nodemap[candidate][0] and self.nodemap[unreached][0] < min:
+								elif self.nodemap[unreached][0] <= self.nodemap[candidate][0] and self.nodemap[unreached][0] < min:
 									min = self.nodemap[unreached][0]
 						
 						#if shortest, head East (positive X)
