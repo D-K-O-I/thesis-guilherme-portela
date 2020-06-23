@@ -8,12 +8,15 @@ import subprocess
 import os
 import sys
 import math
-
+import matplotlib.pyplot as plt
+import numpy
+import re
 
 DRONE_DISTANCE = 20 #arbitrary
 DRONE_MAXHEIGHT = 200
 drone_position = None #metric::= [0.0, 0.0, 0.0]
 rcv = 0
+
 
 def query_rfid():
 	#hardware instruction: query nearby path markers
@@ -63,7 +66,10 @@ def movement_controller(traverse_order, shelf_level, node, next_node, nodemap, d
 						string_builder_temp += "forward "
 					else:
 						rotation = (180 - dhc) % 360
-						string_builder_temp += "cw " + str(rotation) + "\n"
+						if rotation <= 180:
+							string_builder_temp += "cw " + str(rotation) + "\n"
+						else:
+							string_builder_temp += "ccw" + str(rotation%180) + "\n"
 						string_builder_temp += "forward "
 						dhc = 180
 
@@ -73,7 +79,10 @@ def movement_controller(traverse_order, shelf_level, node, next_node, nodemap, d
 						string_builder_temp += "forward "
 					else:
 						rotation = (0 - dhc) % 360
-						string_builder_temp += "cw " + str(rotation) + "\n"
+						if rotation <= 180:
+							string_builder_temp += "cw " + str(rotation) + "\n"
+						else:
+							string_builder_temp += "ccw" + str(rotation%180) + "\n"
 						string_builder_temp += "forward "
 						dhc = 0
 
@@ -87,7 +96,10 @@ def movement_controller(traverse_order, shelf_level, node, next_node, nodemap, d
 						string_builder_temp += "forward "
 					else:
 						rotation = (270 - dhc) % 360
-						string_builder_temp += "cw " + str(rotation) + "\n"
+						if rotation <= 180:
+							string_builder_temp += "cw " + str(rotation) + "\n"
+						else:
+							string_builder_temp += "ccw" + str(rotation%180) + "\n"
 						string_builder_temp += "forward "
 						dhc = 270
 
@@ -97,7 +109,10 @@ def movement_controller(traverse_order, shelf_level, node, next_node, nodemap, d
 						string_builder_temp += "forward "
 					else:
 						rotation = (90 - dhc) % 360
-						string_builder_temp += "cw " + str(rotation) + "\n"
+						if rotation <= 180:
+							string_builder_temp += "cw " + str(rotation) + "\n"
+						else:
+							string_builder_temp += "ccw" + str(rotation%180) + "\n"
 						string_builder_temp += "forward "
 						dhc = 90
 
@@ -159,6 +174,8 @@ def connection_broker():
 
 	log = global_vars.tello.get_log()
 
+	logname = start_time + '.txt'
+	global_vars.logfile = logname
 	out = open(start_time + '.txt', 'w')
 	for stat in log:
 		stat.print_stats()
@@ -191,11 +208,16 @@ def main():
 	vcm.add_node("S",-3,1)
 
 	vcm.add_node("T",2,1)
-	#vcm.set_perimeter((-1,-1),(1,1))
+	vcm.set_perimeter((-1,-1),(1,1))
 	
 	f = open(global_vars.filename, 'w')
 	f.write("command\n")
+	#f.write("speed 10\n")
+	f.write("battery?\n")
+	f.write("wifi?\n")
 	f.write("takeoff\n")
+	f.write("down 20\n")
+	
 	string_builder = ""
 
 	nodemap = vcm.get_nodemap()
@@ -203,6 +225,7 @@ def main():
 	print(vcm.traverse_order)
 
 	drone_position = [vcm.traverse_order[0][0], 0]
+	#drone heading current
 	dhc = 0
 	#print(drone_position)
 	#print(vcm.nodemap[drone_position])
@@ -216,21 +239,70 @@ def main():
 				sbt, dhc = movement_controller(vcm.traverse_order, shelf_level, node, next_node, nodemap, dhc)
 				string_builder += sbt
 				string_builder += "delay 1\n"
+				string_builder += "battery?\n"
+				#string_builder += "wifi?\n"
+				string_builder += "temp?\n"
+
 				#print(dhc)
 		#-> make UP command
 		string_builder += "up " + str(abs(DRONE_DISTANCE)) + "\n"
 
 	f.write(string_builder)
-	#f.write("cw 90\n")
-	#f.write("cw 90\n")
-	#f.write("cw 90\n")
-	#f.write("ccw 270\n")
 	f.write("land\n")
 	f.close()
 	#finally, connection broker relays all commands to drone
 	#connection broker attempts to resend commands!
 	connection_broker()
 	global_vars.tello.on_close()
+	
 
+	#COMMAND-BASED BATTERY LEVEL GRAPH PER COMMAND IDs [MOVED TO tello_test.py]
+	#x1_axis = []
+	#y1_axis = []
+	#x2_axis = []
+	#y2_axis = []
+	#logreader = open(global_vars.logfile, 'r')
+	#line = logreader.readline()
+	#while line:
+	#	if "id: " in line:
+	#		x_point = int(re.sub('\D', '', line))
+	#		line = logreader.readline()
+	#		if "battery?" in line:
+	#			x1_axis.append(x_point)
+	#			battery_value_str = logreader.readline()
+	#			battery_value_int = re.sub('\D', '', battery_value_str)
+	#			y1_axis.append(battery_value_int)
+	#		#if "wifi?" in line:
+	#		#	x2_axis.append(x_point)
+	#		#	snr_value_str = logreader.readline()
+	#		#	snr_value_int = re.sub('\D', '', snr_value_str)
+	#		#	y2_axis.append(snr_value_int)
+	#		if "temp?" in line:
+	#			x2_axis.append(x_point)
+	#			tmp_value_str = logreader.readline()
+	#			tmp_value_int = re.sub('\D', '', tmp_value_str)
+	#			y2_axis.append(tmp_value_int)
+	#	line = logreader.readline()
+
+	#plt.title("Battery spenditure during flight")
+	#plt.xlabel("Command ID")
+	#plt.ylabel("Battery")
+	#x1_plot = numpy.array(x1_axis)
+	#y1_plot = numpy.array(y1_axis)
+	#plt.plot(x1_plot, y1_plot)
+	#plt.gca().invert_yaxis()
+	#plt.draw()
+
+	#plt.figure()
+	#plt.title("Wi-Fi SNR during flight")
+	#plt.xlabel("Command ID")
+	#plt.ylabel("SNR")
+	#x2_plot = numpy.array(x2_axis)
+	#y2_plot = numpy.array(y2_axis)
+	#plt.plot(x2_plot, y2_plot)
+	#plt.gca().invert_yaxis()
+	#plt.draw()
+
+	#plt.show()
 if __name__ == '__main__':
 	main()

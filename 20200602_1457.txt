@@ -1,0 +1,315 @@
+
+id: 0
+command: command
+response: b'ok'
+start time: 2020-06-02 14:57:50.875652
+end_time: 2020-06-02 14:57:50.920627
+duration: 0.044975
+
+id: 1
+command: takeoff
+response: b'ok'
+start time: 2020-06-02 14:57:50.923625
+end_time: 2020-06-02 14:57:59.648661
+duration: 8.725036
+
+id: 2
+command: down 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:57:59.648661
+end_time: 2020-06-02 14:57:59.697615
+duration: 0.048954
+
+id: 3
+command: forward 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:57:59.697615
+end_time: 2020-06-02 14:57:59.846526
+duration: 0.148911
+
+id: 4
+command: cw 180
+response: b'error No valid imu'
+start time: 2020-06-02 14:58:00.847043
+end_time: 2020-06-02 14:58:01.126795
+duration: 0.279752
+
+id: 5
+command: forward 40
+response: b'error No valid imu'
+start time: 2020-06-02 14:58:01.126795
+end_time: 2020-06-02 14:58:01.381651
+duration: 0.254856
+
+id: 6
+command: cw 270
+response: b'error No valid imu'
+start time: 2020-06-02 14:58:02.382165
+end_time: 2020-06-02 14:58:02.656944
+duration: 0.274779
+
+id: 7
+command: forward 20
+response: b'error No valid imu'
+start time: 2020-06-02 14:58:02.656944
+end_time: 2020-06-02 14:58:02.910779
+duration: 0.253835
+
+id: 8
+command: cw 270
+response: b'error No valid imu'
+start time: 2020-06-02 14:58:03.911256
+end_time: 2020-06-02 14:58:04.187047
+duration: 0.275791
+
+id: 9
+command: forward 20
+response: b'error No valid imu'
+start time: 2020-06-02 14:58:04.187047
+end_time: 2020-06-02 14:58:04.447895
+duration: 0.260848
+
+id: 10
+command: forward 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:05.448413
+end_time: 2020-06-02 14:58:05.513290
+duration: 0.064877
+
+id: 11
+command: cw 270
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:06.513805
+end_time: 2020-06-02 14:58:06.584676
+duration: 0.070871
+
+id: 12
+command: forward 40
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:06.584676
+end_time: 2020-06-02 14:58:06.743583
+duration: 0.158907
+
+id: 13
+command: cw 270
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:07.744101
+end_time: 2020-06-02 14:58:07.808999
+duration: 0.064898
+
+id: 14
+command: forward 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:07.808999
+end_time: 2020-06-02 14:58:07.858952
+duration: 0.049953
+
+id: 15
+command: up 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:08.859463
+end_time: 2020-06-02 14:58:08.933334
+duration: 0.073871
+
+id: 16
+command: cw 180
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:08.933334
+end_time: 2020-06-02 14:58:08.982306
+duration: 0.048972
+
+id: 17
+command: forward 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:08.982306
+end_time: 2020-06-02 14:58:09.136219
+duration: 0.153913
+
+id: 18
+command: cw 90
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:10.136733
+end_time: 2020-06-02 14:58:10.201638
+duration: 0.064905
+
+id: 19
+command: forward 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:10.201638
+end_time: 2020-06-02 14:58:10.258577
+duration: 0.056939
+
+id: 20
+command: cw 90
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:11.259091
+end_time: 2020-06-02 14:58:11.329996
+duration: 0.070905
+
+id: 21
+command: forward 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:11.329996
+end_time: 2020-06-02 14:58:11.375938
+duration: 0.045942
+
+id: 22
+command: forward 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:12.376412
+end_time: 2020-06-02 14:58:12.456320
+duration: 0.079908
+
+id: 23
+command: cw 270
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:13.456836
+end_time: 2020-06-02 14:58:13.523730
+duration: 0.066894
+
+id: 24
+command: forward 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:13.523730
+end_time: 2020-06-02 14:58:13.569704
+duration: 0.045974
+
+id: 25
+command: cw 270
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:14.570199
+end_time: 2020-06-02 14:58:14.651067
+duration: 0.080868
+
+id: 26
+command: forward 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:14.651067
+end_time: 2020-06-02 14:58:14.698040
+duration: 0.046973
+
+id: 27
+command: forward 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:15.698555
+end_time: 2020-06-02 14:58:15.773433
+duration: 0.074878
+
+id: 28
+command: up 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:16.773939
+end_time: 2020-06-02 14:58:16.839816
+duration: 0.065877
+
+id: 29
+command: cw 180
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:16.839816
+end_time: 2020-06-02 14:58:16.897784
+duration: 0.057968
+
+id: 30
+command: forward 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:16.897784
+end_time: 2020-06-02 14:58:17.043698
+duration: 0.145914
+
+id: 31
+command: forward 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:18.044126
+end_time: 2020-06-02 14:58:18.120084
+duration: 0.075958
+
+id: 32
+command: cw 90
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:19.120511
+end_time: 2020-06-02 14:58:19.186474
+duration: 0.065963
+
+id: 33
+command: forward 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:19.188473
+end_time: 2020-06-02 14:58:19.344406
+duration: 0.155933
+
+id: 34
+command: cw 90
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:20.344858
+end_time: 2020-06-02 14:58:20.408775
+duration: 0.063917
+
+id: 35
+command: forward 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:20.408775
+end_time: 2020-06-02 14:58:20.453747
+duration: 0.044972
+
+id: 36
+command: forward 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:21.454266
+end_time: 2020-06-02 14:58:21.531134
+duration: 0.076868
+
+id: 37
+command: cw 270
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:22.531649
+end_time: 2020-06-02 14:58:22.602521
+duration: 0.070872
+
+id: 38
+command: forward 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:22.602521
+end_time: 2020-06-02 14:58:22.704465
+duration: 0.101944
+
+id: 39
+command: cw 270
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:23.704978
+end_time: 2020-06-02 14:58:23.774851
+duration: 0.069873
+
+id: 40
+command: forward 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:23.774851
+end_time: 2020-06-02 14:58:23.921784
+duration: 0.146933
+
+id: 41
+command: cw 270
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:24.922283
+end_time: 2020-06-02 14:58:24.999153
+duration: 0.07687
+
+id: 42
+command: forward 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:24.999153
+end_time: 2020-06-02 14:58:25.152071
+duration: 0.152918
+
+id: 43
+command: up 20
+response: b'error Motor stop'
+start time: 2020-06-02 14:58:26.152580
+end_time: 2020-06-02 14:58:26.230448
+duration: 0.077868
+
+id: 44
+command: land
+response: b'error'
+start time: 2020-06-02 14:58:26.230448
+end_time: 2020-06-02 14:58:26.287415
+duration: 0.056967

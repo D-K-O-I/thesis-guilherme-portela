@@ -1,0 +1,637 @@
+
+id: 0
+command: command
+response: b'ok'
+start time: 2020-06-17 15:39:36.239527
+end_time: 2020-06-17 15:39:36.284504
+duration: 0.044977
+
+id: 1
+command: battery?
+response: b'72\r\n'
+start time: 2020-06-17 15:39:36.285500
+end_time: 2020-06-17 15:39:36.348466
+duration: 0.062966
+
+id: 2
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:39:36.348466
+end_time: 2020-06-17 15:39:36.399437
+duration: 0.050971
+
+id: 3
+command: takeoff
+response: b'ok'
+start time: 2020-06-17 15:39:36.399437
+end_time: 2020-06-17 15:39:42.419279
+duration: 6.019842
+
+id: 4
+command: down 20
+response: b'ok'
+start time: 2020-06-17 15:39:42.419279
+end_time: 2020-06-17 15:39:44.299359
+duration: 1.88008
+
+id: 5
+command: forward 20
+response: b'ok'
+start time: 2020-06-17 15:39:44.299359
+end_time: 2020-06-17 15:39:46.241391
+duration: 1.942032
+
+id: 6
+command: battery?
+response: b'71\r\n'
+start time: 2020-06-17 15:39:47.241818
+end_time: 2020-06-17 15:39:47.260806
+duration: 0.018988
+
+id: 7
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:39:47.260806
+end_time: 2020-06-17 15:39:47.322785
+duration: 0.061979
+
+id: 8
+command: cw 180
+response: b'ok'
+start time: 2020-06-17 15:39:47.322785
+end_time: 2020-06-17 15:39:51.088862
+duration: 3.766077
+
+id: 9
+command: forward 40
+response: b'ok'
+start time: 2020-06-17 15:39:51.088862
+end_time: 2020-06-17 15:39:52.964903
+duration: 1.876041
+
+id: 10
+command: battery?
+response: b'71\r\n'
+start time: 2020-06-17 15:39:53.964943
+end_time: 2020-06-17 15:39:53.989850
+duration: 0.024907
+
+id: 11
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:39:53.989850
+end_time: 2020-06-17 15:39:54.047809
+duration: 0.057959
+
+id: 12
+command: cw 270
+response: b'ok'
+start time: 2020-06-17 15:39:54.047809
+end_time: 2020-06-17 15:39:59.091292
+duration: 5.043483
+
+id: 13
+command: forward 20
+response: b'ok'
+start time: 2020-06-17 15:39:59.091292
+end_time: 2020-06-17 15:40:00.881393
+duration: 1.790101
+
+id: 14
+command: battery?
+response: b'71\r\n'
+start time: 2020-06-17 15:40:01.881805
+end_time: 2020-06-17 15:40:01.901825
+duration: 0.02002
+
+id: 15
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:40:01.901825
+end_time: 2020-06-17 15:40:01.946770
+duration: 0.044945
+
+id: 16
+command: cw 270
+response: b'ok'
+start time: 2020-06-17 15:40:01.946770
+end_time: 2020-06-17 15:40:06.990019
+duration: 5.043249
+
+id: 17
+command: forward 20
+response: b'ok'
+start time: 2020-06-17 15:40:06.990019
+end_time: 2020-06-17 15:40:08.883411
+duration: 1.893392
+
+id: 18
+command: battery?
+response: b'71\r\n'
+start time: 2020-06-17 15:40:09.884283
+end_time: 2020-06-17 15:40:09.903186
+duration: 0.018903
+
+id: 19
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:40:09.903186
+end_time: 2020-06-17 15:40:09.954156
+duration: 0.05097
+
+id: 20
+command: forward 20
+response: b'ok'
+start time: 2020-06-17 15:40:09.955155
+end_time: 2020-06-17 15:40:11.885069
+duration: 1.929914
+
+id: 21
+command: battery?
+response: b'71\r\n'
+start time: 2020-06-17 15:40:12.885947
+end_time: 2020-06-17 15:40:12.913845
+duration: 0.027898
+
+id: 22
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:40:12.913845
+end_time: 2020-06-17 15:40:12.956821
+duration: 0.042976
+
+id: 23
+command: cw 270
+response: b'ok'
+start time: 2020-06-17 15:40:12.956821
+end_time: 2020-06-17 15:40:17.961095
+duration: 5.004274
+
+id: 24
+command: forward 40
+response: b'ok'
+start time: 2020-06-17 15:40:17.961095
+end_time: 2020-06-17 15:40:20.306131
+duration: 2.345036
+
+id: 25
+command: battery?
+response: b'70\r\n'
+start time: 2020-06-17 15:40:21.307113
+end_time: 2020-06-17 15:40:21.329017
+duration: 0.021904
+
+id: 26
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:40:21.329017
+end_time: 2020-06-17 15:40:21.384987
+duration: 0.05597
+
+id: 27
+command: cw 270
+response: b'ok'
+start time: 2020-06-17 15:40:21.386980
+end_time: 2020-06-17 15:40:26.378619
+duration: 4.991639
+
+id: 28
+command: forward 20
+response: b'ok'
+start time: 2020-06-17 15:40:26.378619
+end_time: 2020-06-17 15:40:28.311625
+duration: 1.933006
+
+id: 29
+command: battery?
+response: b'68\r\n'
+start time: 2020-06-17 15:40:29.311727
+end_time: 2020-06-17 15:40:29.344685
+duration: 0.032958
+
+id: 30
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:40:29.345685
+end_time: 2020-06-17 15:40:29.395655
+duration: 0.04997
+
+id: 31
+command: up 20
+response: b'ok'
+start time: 2020-06-17 15:40:29.395655
+end_time: 2020-06-17 15:40:31.422649
+duration: 2.026994
+
+id: 32
+command: cw 180
+response: b'ok'
+start time: 2020-06-17 15:40:31.422649
+end_time: 2020-06-17 15:40:35.146241
+duration: 3.723592
+
+id: 33
+command: forward 20
+response: b'ok'
+start time: 2020-06-17 15:40:35.146241
+end_time: 2020-06-17 15:40:37.084323
+duration: 1.938082
+
+id: 34
+command: battery?
+response: b'67\r\n'
+start time: 2020-06-17 15:40:38.084423
+end_time: 2020-06-17 15:40:38.109447
+duration: 0.025024
+
+id: 35
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:40:38.109447
+end_time: 2020-06-17 15:40:38.160387
+duration: 0.05094
+
+id: 36
+command: cw 90
+response: b'ok'
+start time: 2020-06-17 15:40:38.160387
+end_time: 2020-06-17 15:40:40.242196
+duration: 2.081809
+
+id: 37
+command: forward 20
+response: b'ok'
+start time: 2020-06-17 15:40:40.242196
+end_time: 2020-06-17 15:40:41.992318
+duration: 1.750122
+
+id: 38
+command: battery?
+response: b'67\r\n'
+start time: 2020-06-17 15:40:42.993021
+end_time: 2020-06-17 15:40:43.056898
+duration: 0.063877
+
+id: 39
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:40:43.056898
+end_time: 2020-06-17 15:40:43.108866
+duration: 0.051968
+
+id: 40
+command: cw 90
+response: b'ok'
+start time: 2020-06-17 15:40:43.108866
+end_time: 2020-06-17 15:40:45.251637
+duration: 2.142771
+
+id: 41
+command: forward 20
+response: b'ok'
+start time: 2020-06-17 15:40:45.251637
+end_time: 2020-06-17 15:40:47.030630
+duration: 1.778993
+
+id: 42
+command: battery?
+response: b'66\r\n'
+start time: 2020-06-17 15:40:48.030719
+end_time: 2020-06-17 15:40:48.055714
+duration: 0.024995
+
+id: 43
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:40:48.055714
+end_time: 2020-06-17 15:40:48.107678
+duration: 0.051964
+
+id: 44
+command: forward 20
+response: b'ok'
+start time: 2020-06-17 15:40:48.107678
+end_time: 2020-06-17 15:40:50.045224
+duration: 1.937546
+
+id: 45
+command: battery?
+response: b'65\r\n'
+start time: 2020-06-17 15:40:51.045946
+end_time: 2020-06-17 15:40:51.064854
+duration: 0.018908
+
+id: 46
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:40:51.065848
+end_time: 2020-06-17 15:40:51.121815
+duration: 0.055967
+
+id: 47
+command: cw 270
+response: b'ok'
+start time: 2020-06-17 15:40:51.121815
+end_time: 2020-06-17 15:40:56.369655
+duration: 5.24784
+
+id: 48
+command: forward 20
+response: b'ok'
+start time: 2020-06-17 15:40:56.369655
+end_time: 2020-06-17 15:40:58.306657
+duration: 1.937002
+
+id: 49
+command: battery?
+response: b'64\r\n'
+start time: 2020-06-17 15:40:59.307022
+end_time: 2020-06-17 15:40:59.321925
+duration: 0.014903
+
+id: 50
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:40:59.321925
+end_time: 2020-06-17 15:40:59.375899
+duration: 0.053974
+
+id: 51
+command: cw 270
+response: b'ok'
+start time: 2020-06-17 15:40:59.375899
+end_time: 2020-06-17 15:41:04.526086
+duration: 5.150187
+
+id: 52
+command: forward 20
+response: b'ok'
+start time: 2020-06-17 15:41:04.528081
+end_time: 2020-06-17 15:41:06.618034
+duration: 2.089953
+
+id: 53
+command: battery?
+response: b'63\r\n'
+start time: 2020-06-17 15:41:07.618945
+end_time: 2020-06-17 15:41:07.643847
+duration: 0.024902
+
+id: 54
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:41:07.643847
+end_time: 2020-06-17 15:41:07.694815
+duration: 0.050968
+
+id: 55
+command: forward 20
+response: b'ok'
+start time: 2020-06-17 15:41:07.695814
+end_time: 2020-06-17 15:41:10.046478
+duration: 2.350664
+
+id: 56
+command: battery?
+response: b'63\r\n'
+start time: 2020-06-17 15:41:11.046844
+end_time: 2020-06-17 15:41:11.066803
+duration: 0.019959
+
+id: 57
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:41:11.066803
+end_time: 2020-06-17 15:41:11.112796
+duration: 0.045993
+
+id: 58
+command: up 20
+response: b'ok'
+start time: 2020-06-17 15:41:11.112796
+end_time: 2020-06-17 15:41:12.994813
+duration: 1.882017
+
+id: 59
+command: cw 180
+response: b'ok'
+start time: 2020-06-17 15:41:12.994813
+end_time: 2020-06-17 15:41:16.770768
+duration: 3.775955
+
+id: 60
+command: forward 20
+response: b'ok'
+start time: 2020-06-17 15:41:16.770768
+end_time: 2020-06-17 15:41:18.657684
+duration: 1.886916
+
+id: 61
+command: battery?
+response: b'62\r\n'
+start time: 2020-06-17 15:41:19.657943
+end_time: 2020-06-17 15:41:19.683839
+duration: 0.025896
+
+id: 62
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:41:19.683839
+end_time: 2020-06-17 15:41:19.734811
+duration: 0.050972
+
+id: 63
+command: forward 20
+response: b'ok'
+start time: 2020-06-17 15:41:19.734811
+end_time: 2020-06-17 15:41:21.871267
+duration: 2.136456
+
+id: 64
+command: battery?
+response: b'61\r\n'
+start time: 2020-06-17 15:41:22.871948
+end_time: 2020-06-17 15:41:22.890852
+duration: 0.018904
+
+id: 65
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:41:22.893847
+end_time: 2020-06-17 15:41:22.947820
+duration: 0.053973
+
+id: 66
+command: cw 90
+response: b'ok'
+start time: 2020-06-17 15:41:22.947820
+end_time: 2020-06-17 15:41:26.053675
+duration: 3.105855
+
+id: 67
+command: forward 20
+response: b'ok'
+start time: 2020-06-17 15:41:26.053675
+end_time: 2020-06-17 15:41:27.940843
+duration: 1.887168
+
+id: 68
+command: battery?
+response: b'60\r\n'
+start time: 2020-06-17 15:41:28.940886
+end_time: 2020-06-17 15:41:28.973780
+duration: 0.032894
+
+id: 69
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:41:28.973780
+end_time: 2020-06-17 15:41:29.012755
+duration: 0.038975
+
+id: 70
+command: cw 90
+response: b'ok'
+start time: 2020-06-17 15:41:29.012755
+end_time: 2020-06-17 15:41:31.222712
+duration: 2.209957
+
+id: 71
+command: forward 20
+response: b'ok'
+start time: 2020-06-17 15:41:31.222712
+end_time: 2020-06-17 15:41:33.347830
+duration: 2.125118
+
+id: 72
+command: battery?
+response: b'60\r\n'
+start time: 2020-06-17 15:41:34.347944
+end_time: 2020-06-17 15:41:34.372843
+duration: 0.024899
+
+id: 73
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:41:34.372843
+end_time: 2020-06-17 15:41:34.429813
+duration: 0.05697
+
+id: 74
+command: forward 20
+response: b'ok'
+start time: 2020-06-17 15:41:34.429813
+end_time: 2020-06-17 15:41:36.924870
+duration: 2.495057
+
+id: 75
+command: battery?
+response: b'59\r\n'
+start time: 2020-06-17 15:41:37.925948
+end_time: 2020-06-17 15:41:37.938854
+duration: 0.012906
+
+id: 76
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:41:37.939852
+end_time: 2020-06-17 15:41:38.003814
+duration: 0.063962
+
+id: 77
+command: cw 270
+response: b'ok'
+start time: 2020-06-17 15:41:38.003814
+end_time: 2020-06-17 15:41:42.739315
+duration: 4.735501
+
+id: 78
+command: forward 20
+response: b'ok'
+start time: 2020-06-17 15:41:42.739315
+end_time: 2020-06-17 15:41:45.060230
+duration: 2.320915
+
+id: 79
+command: battery?
+response: b'58\r\n'
+start time: 2020-06-17 15:41:46.060945
+end_time: 2020-06-17 15:41:46.099833
+duration: 0.038888
+
+id: 80
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:41:46.099833
+end_time: 2020-06-17 15:41:46.156823
+duration: 0.05699
+
+id: 81
+command: cw 270
+response: b'ok'
+start time: 2020-06-17 15:41:46.156823
+end_time: 2020-06-17 15:41:51.614033
+duration: 5.45721
+
+id: 82
+command: forward 20
+response: b'ok'
+start time: 2020-06-17 15:41:51.614033
+end_time: 2020-06-17 15:41:53.452977
+duration: 1.838944
+
+id: 83
+command: battery?
+response: b'57\r\n'
+start time: 2020-06-17 15:41:54.453937
+end_time: 2020-06-17 15:41:54.477924
+duration: 0.023987
+
+id: 84
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:41:54.477924
+end_time: 2020-06-17 15:41:54.528894
+duration: 0.05097
+
+id: 85
+command: cw 270
+response: b'ok'
+start time: 2020-06-17 15:41:54.528894
+end_time: 2020-06-17 15:41:59.260498
+duration: 4.731604
+
+id: 86
+command: forward 20
+response: b'ok'
+start time: 2020-06-17 15:41:59.260498
+end_time: 2020-06-17 15:42:01.198491
+duration: 1.937993
+
+id: 87
+command: battery?
+response: b'56\r\n'
+start time: 2020-06-17 15:42:02.198896
+end_time: 2020-06-17 15:42:02.217914
+duration: 0.019018
+
+id: 88
+command: wifi?
+response: b'90\r\n'
+start time: 2020-06-17 15:42:02.217914
+end_time: 2020-06-17 15:42:02.286844
+duration: 0.06893
+
+id: 89
+command: up 20
+response: b'ok'
+start time: 2020-06-17 15:42:02.286844
+end_time: 2020-06-17 15:42:04.212980
+duration: 1.926136
+
+id: 90
+command: land
+response: b'ok'
+start time: 2020-06-17 15:42:04.212980
+end_time: 2020-06-17 15:42:08.402568
+duration: 4.189588

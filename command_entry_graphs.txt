@@ -1,0 +1,26 @@
+command
+takeoff
+battery?
+wifi?
+temp?
+delay 10
+battery?
+wifi?
+temp?
+delay 10
+battery?
+wifi?
+temp?
+delay 10
+battery?
+wifi?
+temp?
+delay 10
+battery?
+wifi?
+temp?
+delay 10
+battery?
+wifi?
+temp?
+land
