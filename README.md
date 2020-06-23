@@ -1,9 +1,9 @@
 # Drone Navigation Component
 
 Components:
-- Positioning system (TBD)
-- Setup and Routing system
-- Drone Movement Command system
+- Positioning system (TODO - Integration with RFID)
+- Setup and Routing system (Complete for VCM)
+- Drone Movement Command system (Complete for VCM)
 
 The Navigation Component is being developed alongside the computational platform's Inventorying Component and Communications Component.
 
@@ -11,4 +11,6 @@ Currently, vcm.py can, given a set of nodes, route a path through all nodes, one
 
 Currently, tello_continuous_test.py can send commands to the drone in near-real-time through Wi-Fi.
 
-Sample commands are located in main.py
+Currently, main.py executes the route by giving the drone physical movement commands based on rotation by angle, horizontal traversal and vertical traversal.
+
+Currently, tello_test.py can be used to produce graphs on the latest flight.
